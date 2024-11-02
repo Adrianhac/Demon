@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRACKED 71 - Tool</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="login-container">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h1>CRACKED 71</h1>
+        <p class="tagline">আপনাকে আমাদের ওয়েবসাইটে স্বাগতম</p>
+        
+        
+        <!-- Key System Form -->
+        <form id="keyForm" onsubmit="return handleButtonClick(event);">
+            <label for="key">Enter Your Key:</label>
+            <input type="text" id="key" name="key" placeholder="Enter key here..." required>
+            <button type="submit" class="login-button">Submit Key</button>
+        </form>
+
+        <!-- Telegram Join Button -->
+        <div class="telegram-section">
+            <p>Join our Telegram Channel for Updates:</p>
+            <a href="https://t.me/cracked71" class="telegram-button">Join Telegram</a>
+        </div>
+    </div>
+   
+    <script>
+        let isFirstClick = true; // Track if it's the first click
+
+        function handleButtonClick(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const key = document.getElementById('key').value; // Get the entered key
+            
+            if (isFirstClick) {
+                isFirstClick = false; // Set to false after the first click
+                
+                // Display ad on the first click
+                let adWindow = window.open('https://www.profitablecpmrate.com/wgm4t6tzmp?key=52c5f36d64b6b870077c2f01929ccdc5', '_blank'); // Open new window for ad
+                
+                // Use a timeout to validate key after ad window opens
+                setTimeout(() => {
+                    if (adWindow) {
+                        adWindow.close(); // Close ad window after some time
+                    }
+                    validateKey(key); // Proceed to validate key
+                }, 5000); // Adjust time as needed
+            } else {
+                validateKey(key); // Directly validate key after first click
+            }
+        }
+
+        function validateKey(key) {
+            fetch('validate_key.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'key=' + encodeURIComponent(key),
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    // If key is valid, store login status and redirect
+                    sessionStorage.setItem('loggedIn', 'true'); // Set login status
+                    window.location.href = 'dashboard.html'; // Redirect to dashboard
+                } else {
+                    alert('Invalid Key! Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+   
+</body>
+</html>
